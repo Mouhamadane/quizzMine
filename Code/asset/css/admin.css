@@ -52,6 +52,13 @@
     margin-left: 8%;
     color: tomato;
 }
+.succes-form {
+    margin: 0;
+    height: 10px;
+    margin-left: 8%;
+    color: white;
+    background-color: rgb(29, 145, 29);
+}
 
 
 

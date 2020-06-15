@@ -1,20 +1,9 @@
 <?php
-function connexion (){
-    $serverName = "localhost";
-    $userName = "root";
-    $password = "daneB613..123";
-    try{
-        $connect = new PDO("mysql:host=$serverName;dbname=quizzproject", $userName, $password);
-        // On définit le mode d'erreur de PDO sur Exception
-        $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    catch(PDOException $e){
-		echo 'Echec'.$e->getMessage();
-    }
-    return $connect;
-}
+require_once('../database/connexion.php');
+
  // Verifier connexion
  function is_connect(){
+    global $connect;
     if (!isset($_SESSION['statut'])) {
         header("Location:../index.php");
     }
@@ -58,7 +47,7 @@ function is_chaine_alpha($chaine){
 }
 // Verifier ci le login existe déjà
 function is_login($login){
-    $connect = connexion();
+    global $connect;
     $role = "player";
     $query = $connect->prepare("SELECT * FROM users WHERE login = ? and role = ?");
     $query->execute(array($login, $role));
@@ -69,7 +58,7 @@ function is_login($login){
     return false;      
 }
 function is_admin($login){
-    $connect = connexion();
+    global $connect;
     $role = "admin";
     $query = $connect->prepare("SELECT * FROM users WHERE login = ? and role = ?");
     $query->execute(array($login, $role));
@@ -79,49 +68,6 @@ function is_admin($login){
     }        
     return false;      
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>

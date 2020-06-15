@@ -1,58 +1,58 @@
 <?php
-    session_start();
-    require_once('./src/function.php');
-    $connect = connexion();
-    $error = "";
-    if (isset($_POST['btn'])) {
-        $pseudo = $_POST['pseudo'];
-        $password = $_POST['password'];
-        $query = $connect->prepare("SELECT * FROM users WHERE login = ? and password = ?");
-        $query->execute(array($pseudo, $password));
-        $result = $query->rowCount();
-        if ($result == 1) {
-            $user = $query-> fetch();
-            $_SESSION['name']= $user['Name'];
-            $_SESSION['login']= $user['login'];
-            $_SESSION['password']= $user['password'];
-            $_SESSION['statut']="connect";
-            if ($user['role']== "admin") {
-                header("Location:./src/accueil.php ");
-            }
-            else {
-                header("Location:./src/player.php ");
-            }
-        }else {
-            $error = "Login ou mot de pass incorrect !";
-        }
-    }
+require_once('database/connexion.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asset/css/style.css">
-    <script src="./asset/jquery/jquery.js"></script>
-    <script src="./asset/js/script.js"></script>
-
+    <script src="asset/jquery/jquery.js"></script>
+    <link rel="stylesheet" href="asset/css/sb-admin-2.min.css">
+    <script src="src/script.js"></script>
     <title>Identification</title>
 </head>
-<body>
-    <div class="container">
-        <span id="test"></span>
-        <div class="login-form">
-            <div class="text-form">BIENVENUE SUR QSA</div>
-            <strong class="error" id="error"><?= $error?></strong>
-            <form method="post">
-                <input class="input-form" type="text" id="pseudo" placeholder="Pseudo" name="pseudo" autocomplete="off">
-                <span class="error-pseudo"></span>
-                <input class="input-form1" id="password" type="password" placeholder="Mot de pass" name="password">
-                <span class="error-password"></span>
-                <button type="submit" id="envoyer" class="button-connect" name="btn">Se connecter</button>
-            </form>
-            <a href="./src/inscrire.php" class="inscrire-link">Créer un compte</a></p>
+<body class="bg-gradient-primary">
+<div class="container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+    <div class="col-xl-6 col-lg-6 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div>
+            <div>
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">BIENVENUE SUR QIZZSA!</h1>
+                    </div>
+                    <div id="error"></div>
+                    <form class="user">
+                        <div class="form-group">
+                        <input type="email" class="form-control form-control-user" id="pseudo" aria-describedby="emailHelp" placeholder="Entrer votre Pseudo..." autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                        <input type="password" class="form-control form-control-user" id="password" placeholder="Mot de pass">
+                        </div>
+                        <button type="submit" id="envoyer" class="btn btn-primary btn-user btn-block"> Connexion</button>
+                        <hr>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <a class="small" href="src/inscrire.php">Créer un compte</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
         </div>
     </div>
+
+    </div>
+
+</div>
     <script>
 
     </script>
